@@ -6,9 +6,6 @@ import io
 import re
 import unicodedata
 
-# ==========================================
-# 0. CONFIGURATION DE LA PAGE
-# ==========================================
 st.set_page_config(page_title="La Boîte à Outils", page_icon="🛠️", layout="wide")
 
 # Dictionnaires globaux
@@ -45,9 +42,17 @@ def normalize_text(text):
     return re.sub(r'\s+', ' ', text).strip()
 
 def lire_fichier(file_obj):
+    file_obj.seek(0)
     ext = file_obj.name.rsplit('.', 1)[1].lower()
-    if ext == 'csv': return pd.read_csv(file_obj, sep=';', dtype=str)
-    else: return pd.read_excel(file_obj, dtype=str)
+    
+    if ext == 'csv': 
+        try:
+            return pd.read_csv(file_obj, sep=';', dtype=str, encoding='utf-8')
+        except UnicodeDecodeError:
+            file_obj.seek(0)
+            return pd.read_csv(file_obj, sep=';', dtype=str, encoding='latin-1')
+    else: 
+        return pd.read_excel(file_obj, dtype=str)
 
 def to_excel_bytes(df):
     output = io.BytesIO()
