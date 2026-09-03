@@ -1,4 +1,5 @@
 import streamlit as st
+st.write("Fichiers détectés :", __import__('os').listdir())
 import pandas as pd
 import math
 import zipfile
