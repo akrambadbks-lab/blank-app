@@ -102,8 +102,7 @@ choix = st.sidebar.radio("Choisissez votre application :", [
     "3. 🌍 Filtre Régional",
     "4. 🎂 Filtre par Âge",
     "5. 📱 Formateur Téléphone(+1 ou +33)",
-    "6. 🇫🇷 Séparateur Départements (FR)",
-    "7. ✅ Filtre par Statut"
+    "6. 🇫🇷 Séparateur Départements (FR)"
 ])
 
 st.sidebar.markdown("---")
