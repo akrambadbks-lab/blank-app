@@ -63,7 +63,7 @@ column_synonyms = {
     'IBAN': ['iban', 'iban number', 'bank account', 'bank account number','IBAN', 'iban rib','nir_pretty','IBAN/RIB','IBANRIB'],
 }
 
-# Fonctions utilitaires
+
 def normalize_text(text):
     if pd.isna(text): return ""
     text = str(text).lower()
@@ -372,7 +372,6 @@ elif choix.startswith("6"):
                     )
                 else:
                     st.warning("Aucun contact n'a été trouvé pour ces départements.")
-
 
 # ==========================================
 # 6. APPLICATION : FORMATEUR TÉLÉPHONE
