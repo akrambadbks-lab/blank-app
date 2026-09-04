@@ -13,6 +13,10 @@ st.set_page_config(page_title="La Boîte à Outils", page_icon="🛠️", layout
 
 cookie_manager = stx.CookieManager()
 
+if "initialisation" not in st.session_state:
+    st.session_state["initialisation"] = True
+    st.rerun()
+
 def check_password():
     if cookie_manager.get(cookie="logged_in") == "true":
         return True
@@ -71,7 +75,6 @@ column_synonyms = {
     'IBAN': ['iban', 'iban number', 'bank account', 'bank account number','IBAN', 'iban rib','nir_pretty','IBAN/RIB','IBANRIB'],
 }
 
-# Fonctions utilitaires
 def normalize_text(text):
     if pd.isna(text): return ""
     text = str(text).lower()
