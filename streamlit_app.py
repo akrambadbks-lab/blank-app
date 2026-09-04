@@ -9,7 +9,6 @@ import unicodedata
 # --- CYBER AJEMI ---
 st.set_page_config(page_title="La Boîte à Outils", page_icon="🛠️", layout="wide")
 
-# 2. SYSTÈME DE CONNEXION
 def check_password():
     def password_entered():
         if (st.session_state["username"] in st.secrets["passwords"] and 
@@ -20,14 +19,14 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        st.title("🔒 Accès Sécurisé")
+        st.title("🔒 Accès a la boite a outils")
         st.text_input("Identifiant", key="username")
         st.text_input("Mot de passe", type="password", key="password")
         st.button("Se connecter", on_click=password_entered)
         return False
         
     elif not st.session_state["password_correct"]:
-        st.title("🔒 Accès Sécurisé")
+        st.title("🔒 Accès a la boite a outils")
         st.text_input("Identifiant", key="username")
         st.text_input("Mot de passe", type="password", key="password")
         st.button("Se connecter", on_click=password_entered)
