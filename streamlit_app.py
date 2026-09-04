@@ -6,10 +6,17 @@ import zipfile
 import io
 import re
 import unicodedata
+import extra_streamlit_components as stx
 # --- CYBER AJEMI ---
+
 st.set_page_config(page_title="La Boîte à Outils", page_icon="🛠️", layout="wide")
 
+cookie_manager = stx.CookieManager()
+
 def check_password():
+    if cookie_manager.get(cookie="logged_in") == "true":
+        return True
+
     def password_entered():
         if (st.session_state["username"] in st.secrets["passwords"] and 
             st.session_state["password"] == st.secrets["passwords"][st.session_state["username"]]):
@@ -19,20 +26,21 @@ def check_password():
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        st.title("🔒 Accès a la boite a outils")
+        st.title("🔒 Accès Sécurisé")
         st.text_input("Identifiant", key="username")
         st.text_input("Mot de passe", type="password", key="password")
         st.button("Se connecter", on_click=password_entered)
         return False
         
     elif not st.session_state["password_correct"]:
-        st.title("🔒 Accès a la boite a outils")
+        st.title("🔒 Accès Sécurisé")
         st.text_input("Identifiant", key="username")
         st.text_input("Mot de passe", type="password", key="password")
         st.button("Se connecter", on_click=password_entered)
         st.error("❌ Identifiant ou mot de passe incorrect")
         return False
         
+    cookie_manager.set("logged_in", "true", max_age=259200)
     return True
 
 if not check_password():
