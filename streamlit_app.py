@@ -6,6 +6,37 @@ import zipfile
 import io
 import re
 import unicodedata
+# --- SYBER AJEMI ---
+def check_password():
+    def password_entered():
+        if (st.session_state["username"] in st.secrets["passwords"] and 
+            st.session_state["password"] == st.secrets["passwords"][st.session_state["username"]]):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  
+        else:
+            st.session_state["password_correct"] = False
+
+    if "password_correct" not in st.session_state:
+        st.title(" Accès Sécurisé")
+        st.text_input("Identifiant", key="username")
+        st.text_input("Mot de passe", type="password", key="password")
+        st.button("Se connecter", on_click=password_entered)
+        return False
+        
+    elif not st.session_state["password_correct"]:
+        st.title(" Accès Sécurisé")
+        st.text_input("Identifiant", key="username")
+        st.text_input("Mot de passe", type="password", key="password")
+        st.button("Se connecter", on_click=password_entered)
+        st.error("❌ Identifiant ou mot de passe incorrect")
+        return False
+        
+    return True
+
+if not check_password():
+    st.stop()
+
+choix = st.sidebar.radio(...)
 
 st.set_page_config(page_title="La Boîte à Outils", page_icon="🛠️", layout="wide")
 
@@ -62,7 +93,7 @@ def to_excel_bytes(df):
     return output.getvalue()
 
 # ==========================================
-# 1. MENU LATÉRAL (SIDEBAR)
+# 1. MENU LATÉRAL 
 # ==========================================
 st.sidebar.title("🛠️ La Boîte à Outils")
 choix = st.sidebar.radio("Choisissez votre application :", [
@@ -71,7 +102,8 @@ choix = st.sidebar.radio("Choisissez votre application :", [
     "3. 🌍 Filtre Régional",
     "4. 🎂 Filtre par Âge",
     "5. 📱 Formateur Téléphone(+1 ou +33)",
-    "6. 🇫🇷 Séparateur Départements (FR)"
+    "6. 🇫🇷 Séparateur Départements (FR)",
+    "7. ✅ Filtre par Statut"
 ])
 
 st.sidebar.markdown("---")
