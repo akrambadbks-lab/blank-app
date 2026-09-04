@@ -6,25 +6,28 @@ import zipfile
 import io
 import re
 import unicodedata
-# --- SYBER AJEMI ---
+# --- CYBER AJEMI ---
+st.set_page_config(page_title="La Boîte à Outils", page_icon="🛠️", layout="wide")
+
+# 2. SYSTÈME DE CONNEXION
 def check_password():
     def password_entered():
         if (st.session_state["username"] in st.secrets["passwords"] and 
             st.session_state["password"] == st.secrets["passwords"][st.session_state["username"]]):
             st.session_state["password_correct"] = True
-            del st.session_state["password"]  
+            del st.session_state["password"]
         else:
             st.session_state["password_correct"] = False
 
     if "password_correct" not in st.session_state:
-        st.title(" Accès Sécurisé")
+        st.title("🔒 Accès Sécurisé")
         st.text_input("Identifiant", key="username")
         st.text_input("Mot de passe", type="password", key="password")
         st.button("Se connecter", on_click=password_entered)
         return False
         
     elif not st.session_state["password_correct"]:
-        st.title(" Accès Sécurisé")
+        st.title("🔒 Accès Sécurisé")
         st.text_input("Identifiant", key="username")
         st.text_input("Mot de passe", type="password", key="password")
         st.button("Se connecter", on_click=password_entered)
@@ -36,11 +39,7 @@ def check_password():
 if not check_password():
     st.stop()
 
-choix = st.sidebar.radio(...)
-
-st.set_page_config(page_title="La Boîte à Outils", page_icon="🛠️", layout="wide")
-
-# Dictionnaires globaux
+# Dictionnaires
 REGION_DICTIONARY = {
     "Montreal + Environ": ['H1', 'H2', 'H3', 'H4', 'H5', 'H8', 'H9'], 
     "Rive Sud": ['J2G','J2H','J2S','J2T','J2W','J2X','J2Y','J3','J4','J5A','J5B','J5C','J5R','J6J','J6K','J6N','J6R','J6S','J6T','J0L','J0J','J7V','J7T'],
